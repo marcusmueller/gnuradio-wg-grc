@@ -130,8 +130,9 @@ class TopBlockGenerator(object):
             return ' '.join(repr(arg) if ' ' in arg else arg for arg in args)
 
         run_command = self._flow_graph.get_option('run_command')
-        cmds = shlex.split(run_command.format(python=sys.executable,
-                                              filename=self.get_file_path()))
+
+        fargs = '"' + self.get_file_path() + '"'
+        cmds = shlex.split(run_command.format(python=sys.executable, filename=fargs))
 
         # when in no gui mode on linux, use a graphical terminal (looks nice)
         xterm_executable = find_executable(XTERM_EXECUTABLE)
